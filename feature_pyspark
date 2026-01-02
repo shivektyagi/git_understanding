@@ -1,0 +1,64 @@
+#This is new program of pyspark
+
+#Create a spark session
+
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder \
+    .appName("Simple PySpark SQL Join Example") \
+    .getOrCreate()
+
+#2. Create Sample DataFrames
+
+# Employee table
+employees_data = [
+    (1, "Alice", 101),
+    (2, "Bob", 102),
+    (3, "Charlie", 101)
+]
+
+employees_df = spark.createDataFrame(
+    employees_data,
+    ["emp_id", "emp_name", "dept_id"]
+)
+
+# Department table
+departments_data = [
+    (101, "HR"),
+    (102, "Engineering")
+]
+
+departments_df = spark.createDataFrame(
+    departments_data,
+    ["dept_id", "dept_name"]
+)
+# 3. Register DataFrames as SQL Tables
+
+employees_df.createOrReplaceTempView("employees")
+departments_df.createOrReplaceTempView("departments")
+
+result_df = spark.sql("""
+    SELECT
+        e.emp_id,
+        e.emp_name,
+        d.dept_name
+    FROM employees e
+    INNER JOIN departments d
+        ON e.dept_id = d.dept_id
+""")
+
+result_df.show()
+
++------+--------+-----------+
+|emp_id|emp_name|dept_name  |
++------+--------+-----------+
+|1     |Alice   |HR         |
+|3     |Charlie |HR         |
+|2     |Bob     |Engineering|
++------+--------+-----------+
+
+#Example of basic transformation
+from pyspark.sql.functions import upper
+
+final_df = result_df.withColumn("emp_name_upper", upper("emp_name"))
+final_df.show()
