@@ -1,0 +1,135 @@
+====================================================
+GIT BRANCH WORKFLOW – STEP BY STEP (BEGINNER NOTES)
+====================================================
+
+Repository:
+- You have a GitHub repository
+- Default branch: main
+- Feature branch: feature-pyspark_new
+
+----------------------------------------------------
+1) Pull latest code from main branch
+----------------------------------------------------
+Command:
+git pull origin main
+
+Use:
+- Fetches latest changes from GitHub main branch
+- Merges them into your local main branch
+- Keeps your local code up to date
+
+Think of it as:
+"Update my local main with GitHub main"
+
+----------------------------------------------------
+2) Check current local branches
+----------------------------------------------------
+Command:
+git branch
+
+Use:
+- Shows ONLY local branches
+- * (asterisk) shows which branch you are on
+
+Example output:
+* main
+
+----------------------------------------------------
+3) Fetch all remote branches
+----------------------------------------------------
+Command:
+git fetch origin
+
+Use:
+- Downloads information about ALL branches from GitHub
+- Does NOT change code
+- Does NOT switch branches
+
+Think of it as:
+"Let me see what exists on GitHub"
+
+----------------------------------------------------
+4) List remote branches
+----------------------------------------------------
+Command:
+git branch -r
+
+Use:
+- Shows branches that exist on GitHub (remote)
+- Helps confirm feature branch exists
+
+Example output:
+origin/main
+origin/feature-pyspark_new
+
+----------------------------------------------------
+5) Create local branch & switch to feature branch
+----------------------------------------------------
+Command:
+git switch -c feature-pyspark_new origin/feature-pyspark_new
+
+Use:
+- Creates local branch feature-pyspark_new
+- Links it to GitHub branch
+- Switches you to that branch
+
+Think of it as:
+"Create my working copy of the feature branch and move me there"
+
+(Old alternative command)
+git checkout -b feature-pyspark_new origin/feature-pyspark_new
+
+----------------------------------------------------
+6) Confirm branch switch
+----------------------------------------------------
+Command:
+git branch
+
+Expected output:
+* feature-pyspark_new
+  main
+
+Use:
+- Confirms you are now on the feature branch
+
+----------------------------------------------------
+7) Pull latest code for current branch
+----------------------------------------------------
+Command:
+git pull
+
+Use:
+- Pulls latest changes for the CURRENT branch
+- No need to mention branch name
+
+----------------------------------------------------
+FULL COMMAND SEQUENCE (COPY-PASTE READY)
+----------------------------------------------------
+git pull origin main
+git branch
+git fetch origin
+git branch -r
+git switch -c feature-pyspark_new origin/feature-pyspark_new
+git branch
+git pull
+
+----------------------------------------------------
+IMPORTANT GIT CONCEPTS (REMEMBER)
+----------------------------------------------------
+git pull   = fetch + merge
+git fetch  = download branch info only
+git branch = local branches
+git branch -r = remote branches
+git switch -c = create + switch branch
+
+----------------------------------------------------
+NEXT TYPICAL STEPS AFTER THIS
+----------------------------------------------------
+git status
+git add .
+git commit -m "your message"
+git push origin feature-pyspark_new
+
+====================================================
+END OF FILE
+====================================================
